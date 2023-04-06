@@ -1,0 +1,9 @@
+version: '2.2'
+services:
+
+  nginx_balancer:
+    image: nginx
+    container_name: nginx_balancer
+    ports:
+      - 80:80
+

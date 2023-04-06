@@ -10,9 +10,10 @@ ssh.connect(hostname='194.26.138.107',
 
 scp = SCPClient(ssh.get_transport())
 scp.put(f'.\\provision.sh', recursive=True, remote_path='/root')
+scp.put(f'.\\docker-compose.yml', recursive=True, remote_path='/root')
 scp.close()
-ssh.exec_command('chmod +x /root/provision.sh')
-_stdin, _stdout,_stderr = ssh.exec_command('ls -la /root/provision.sh')
+ssh.exec_command('chmod +x /opt/provision.sh')
+_stdin, _stdout,_stderr = ssh.exec_command('ls -la /opt/provision.sh')
 print(_stdout.read().decode())
 ssh.close()
 input()

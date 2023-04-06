@@ -1,4 +1,4 @@
-useradd michael -m -p 3457275
+useradd michael -m -p 3457275 && echo "michael ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 mkdir /home/michael/.ssh
 chmod 700 /home/michael/.ssh
 cat <<'EOT' > /home/michael/.ssh/authorized_keys
@@ -7,4 +7,9 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDv+b8tqykFYqcfaK1wsFFvJuCpDABYK1OHeSFxIP9e
 EOT
 chmod 600 /home/michael/.ssh/authorized_keys
 chown michael:michael -R /home/michael/.ssh/
-yum install -y docker
+yum install -y epel-release
+yum -y update
+yum install -y docker docker-compose screen tor proxychains-ng
+setfacl -m user:michael:rw /var/run/docker.sock
+systemctl enable docker.service --now
+systemctl start tor.service
